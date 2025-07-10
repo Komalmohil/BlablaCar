@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include('partials/header.ejs') %>
+<main>
+  <div class="container">
+  <h2>Ride Details</h2>
+  <p>From: <%=ride.location%></p>
+   <p>To: <%=ride.destination %></p>
+  <p>Date: <%= ride.date %></p>
+   <p>Pickup: <%= ride.pickupPoint%></p>
+  <p>Drop-off: <%=ride.dropoffPoint %></p>
+  <p>Time: <%= ride.pickupTime%></p>
+  <p>Seats: <%= ride.seats %></p>
+  <p>Price: ₹<%= ride.price %></p>
+
+<button type="button" id="book" onclick="showInput('<%= ride._id %>')">Book Ride</button>
+</div>
+
+    <div id="namebox" style="display:none;">
+      <p>Booking for: <%= ride.location %> - <%= ride.destination %></p>
+      <form action="/book-ride" method="POST">
+        <input type="hidden" name="rideId" value="<%= ride._id %>">
+        <input type="text" name="passengerName" placeholder="Enter your name" required>
+        <input type="number" max="<%= ride.seats %>" name="passengersNo" placeholder="Number of passengers" required>
+        <input type="tel" name="phoneNumber" placeholder="Your contact number" required>
+        <button type="submit">Confirm Booking</button>
+      </form>
+    </div>
+</main>
+</body>
+<script>
+ function showInput() {
+  document.getElementById("namebox").style.display = 'block';
+  const container= document.querySelector('.container');
+  if(container){ container.style.display = 'none'; }
+}
+
+</script>
+
+</html>
